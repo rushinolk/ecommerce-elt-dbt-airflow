@@ -1,0 +1,17 @@
+# Ignorar arquivos de sistema e logs
+logs/
+*.log
+__pycache__/
+.env
+
+# Ignorar dados brutos (nunca suba CSVs gigantes pro GitHub!)
+airflow/data/*.csv
+airflow/staging/*.parquet
+
+# Ignorar artefatos do dbt
+olist_dbt/target/
+olist_dbt/dbt_packages/
+olist_dbt/logs/
+
+# Ignorar configuração local do dbt (se houver copia extra)
+profiles.yml
