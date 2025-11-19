@@ -50,7 +50,7 @@ x-airflow-common:
   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
   image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.1.0}
-  # build: .
+  #build: .
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
@@ -303,7 +303,7 @@ services:
       _AIRFLOW_WWW_USER_CREATE: 'true'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
-      _PIP_ADDITIONAL_REQUIREMENTS: 'pandas sqlalchemy pathlib apache-airflow logging requests glob dbt-postgres'
+      _PIP_ADDITIONAL_REQUIREMENTS: 'pandas sqlalchemy apache-airflow requests dbt-postgres'
     user: "0:0"
 
   airflow-cli:
@@ -346,9 +346,9 @@ services:
     image: postgres:15-alpine
     container_name: olist_dbt
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: leywindev
-      POSTGRES_DB: olist_dbt
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5434:5432" 
     volumes:
@@ -357,3 +357,5 @@ services:
 volumes:
   postgres-db-volume:
   postgres_data:
+
+
